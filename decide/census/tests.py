@@ -29,7 +29,7 @@ class CensusTestCase(BaseTestCase):
         options.headless = True
         #options.add_argument("start-maximized")
         #options.add_argument("window-size=1400,600")
-        driver = webdriver.Firefox(options=options, executable_path= "/usr/bin/geckodriver")
+        driver = webdriver.Firefox(options=options)
         driver.get("https://www.google.com/")
         #driver.set_window_size(1920, 1080)
         self.assertEquals(driver.title, 'Google')
