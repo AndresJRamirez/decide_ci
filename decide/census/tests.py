@@ -8,6 +8,11 @@ from base import mods
 from base.tests import BaseTestCase
 
 
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+
 class CensusTestCase(BaseTestCase):
 
     def setUp(self):
@@ -18,6 +23,19 @@ class CensusTestCase(BaseTestCase):
     def tearDown(self):
         super().tearDown()
         self.census = None
+    def test_browser(self):
+
+        options = webdriver.FirefoxOptions()
+        options.headless = True
+        #options.add_argument("start-maximized")
+        #options.add_argument("window-size=1400,600")
+        driver = webdriver.Firefox(options=options, executable_path= "/usr/bin/geckodriver")
+        driver.get("https://www.google.com/")
+        #driver.set_window_size(1920, 1080)
+        self.assertEquals(driver.title, 'Google')
+        print('Title: %s' % driver.title)
+        driver.quit()
+
 
     def test_check_vote_permissions(self):
         response = self.client.get('/census/{}/?voter_id={}'.format(1, 2), format='json')
